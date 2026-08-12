@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
+import './noor-rebuild.css';
 import SplashScreen from './components/SplashScreen';
 import PermissionIntro from './components/PermissionIntro';
 import BottomNav from './components/BottomNav';
@@ -17,7 +18,7 @@ export default function App() {
     const done = setTimeout(() => {
       setLoading(false);
       if (localStorage.getItem('noor.permissionIntroSeen') !== '1') setShowPermissionIntro(true);
-    }, 900);
+    }, 650);
     return () => clearTimeout(done);
   }, []);
 
@@ -36,9 +37,7 @@ export default function App() {
         <div><span className="brand-mark">☾</span><strong>Noor</strong></div>
         <span className="brand-subtitle">نورٌ يرافقك</span>
       </header>
-      <div className="page-shell">
-        <AppRouter page={page} setPage={setPage} />
-      </div>
+      <div className="page-shell"><AppRouter page={page} setPage={setPage} /></div>
       {canShowAds(page) && <NoorBannerAd />}
       <BottomNav page={page} setPage={setPage} />
     </main>
