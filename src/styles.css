@@ -1,33 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(180deg, #0b3d2e, #061b16);
-  color: white;
+  font-family: 'Arial', sans-serif;
+  background: radial-gradient(circle at top, #174f3b, #03120e 70%);
+  color: #fff;
 }
 
 .noor-app {
   min-height: 100vh;
-  padding: 24px;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.floating-light {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  top: -80px;
+  right: -80px;
+  border-radius: 50%;
+  background: rgba(212,175,55,.15);
+  animation: glow 6s infinite alternate;
 }
 
 .hero {
   text-align: center;
-  padding: 50px 20px;
+  padding: 45px 15px 25px;
+}
+
+.kaaba-icon {
+  font-size: 55px;
+  animation: float 4s ease-in-out infinite;
 }
 
 .hero h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
+  font-size: 52px;
+  margin: 10px 0;
+  color: #d4af37;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+.daily-card {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(12px);
+}
+
+.daily-card strong {
+  display: block;
+  margin-top: 8px;
 }
 
 .features {
   display: grid;
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
 .feature-card {
-  padding: 20px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
+  padding: 22px 10px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  transition: .3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+@keyframes float {
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glow {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
 }
