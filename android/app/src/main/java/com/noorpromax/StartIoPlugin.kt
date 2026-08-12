@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
+import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.startapp.sdk.ads.banner.Banner
 
@@ -13,6 +14,7 @@ import com.startapp.sdk.ads.banner.Banner
 class StartIoPlugin : Plugin() {
     private var banner: Banner? = null
 
+    @PluginMethod
     fun showBanner(call: PluginCall) {
         activity.runOnUiThread {
             if (banner == null) {
@@ -38,6 +40,7 @@ class StartIoPlugin : Plugin() {
         }
     }
 
+    @PluginMethod
     fun hideBanner(call: PluginCall) {
         activity.runOnUiThread {
             banner?.visibility = android.view.View.GONE
@@ -48,7 +51,6 @@ class StartIoPlugin : Plugin() {
     override fun handleOnDestroy() {
         banner?.let { view ->
             (view.parent as? ViewGroup)?.removeView(view)
-            view.removeAllViews()
             banner = null
         }
         super.handleOnDestroy()
