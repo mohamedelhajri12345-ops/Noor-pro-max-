@@ -1,36 +1,63 @@
 name: Noor CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
 jobs:
   web:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
+        with:
+          node-version: 22
+          cache: npm
       - run: npm install
       - run: npm run build
       - name: Upload web build
         uses: actions/upload-artifact@v4
-        with: { name: noor-web-dist, path: dist }
+        with:
+          name: noor-web-dist
+          path: dist
+
   android:
     needs: web
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
+        with:
+          node-version: 22
+          cache: npm
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: '21' }
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
       - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
       - run: npm install
-      - run: npm run android:sync
-      - name: Build debug APK
+      - run: npm run build
+      - run: npx cap sync android
+      - name: Assemble debug APK
         working-directory: android
-        run: gradle assembleDebug
+        run: gradle --no-daemon assembleDebug
+      - name: Assemble release AAB
+        working-directory: android
+        run: gradle --no-daemon bundleRelease
       - name: Upload APK
         uses: actions/upload-artifact@v4
-        with: { name: noor-debug-apk, path: android/app/build/outputs/apk/debug/*.apk }
+        with:
+          name: noor-debug-apk
+          path: android/app/build/outputs/apk/debug/*.apk
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: noor-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab
