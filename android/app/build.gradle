@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -13,9 +14,13 @@ android {
         versionCode 1
         versionName '1.1.0'
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
     implementation project(':capacitor-android')
-    implementation 'com.startapp:inapp-sdk:5.+' 
+    implementation 'com.startapp:inapp-sdk:5.+'
 }
