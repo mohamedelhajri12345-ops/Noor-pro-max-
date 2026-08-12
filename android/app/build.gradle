@@ -1,10 +1,21 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+}
 
-android { namespace 'com.noorpromax'; compileSdk 35
- defaultConfig { applicationId 'com.noorpromax'; minSdk 23; targetSdk 35; versionCode 1; versionName '1.1.0' }
+android {
+    namespace 'com.noorpromax'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.noorpromax'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.1.0'
+    }
 }
 
 dependencies {
- implementation project(':capacitor-android')
- implementation 'com.startapp:inapp-sdk:5.+' 
+    implementation project(':capacitor-android')
+    implementation 'com.startapp:inapp-sdk:5.+' 
 }
