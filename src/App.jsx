@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import './styles.css';
 import SplashScreen from './components/SplashScreen';
 import PermissionIntro from './components/PermissionIntro';
+import NoorBannerAd from './components/ads/NoorBannerAd';
+import NoorNativeAd from './components/ads/NoorNativeAd';
 import { requestNoorPermissions } from './services/permissionService';
 
 export default function App() {
@@ -38,6 +40,7 @@ export default function App() {
   };
 
   const features = Object.keys(pages).filter(p => p !== 'الرئيسية');
+  const allowAds = !['القرآن الكريم','الصلاة'].includes(active);
 
   return (
     <main className="noor-app">
@@ -46,7 +49,13 @@ export default function App() {
         <h1>Noor</h1>
         <p>{pages[active]}</p>
       </section>
+
+      {allowAds && <NoorBannerAd />}
+
       <section className="page-view"><h2>{active}</h2></section>
+
+      {allowAds && active === 'المكتبة' && <NoorNativeAd />}
+
       <section className="features">
         {features.map((item)=>(
           <button className="feature-card" key={item} onClick={()=>setActive(item)}>{item}</button>
