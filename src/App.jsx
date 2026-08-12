@@ -1,39 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './styles.css';
 
 export default function App() {
-  const features = [
-    {icon:'📖', name:'القرآن الكريم'},
-    {icon:'🕌', name:'مواقيت الصلاة'},
-    {icon:'📿', name:'المسبحة'},
-    {icon:'🧭', name:'القبلة'},
-    {icon:'🤲', name:'الأذكار'},
-    {icon:'📚', name:'المكتبة'},
-    {icon:'📝', name:'المفكرة'},
-    {icon:'✨', name:'Noor AI'}
-  ];
+  const [active, setActive] = useState('الرئيسية');
+
+  const pages = {
+    'الرئيسية': 'نورٌ يرافقك في طريق الإيمان',
+    'القرآن الكريم': 'صفحة القرآن والمشغل المتواصل',
+    'الصلاة': 'مواقيت الصلاة والأذان',
+    'المسبحة': 'المسبحة الإلكترونية',
+    'القبلة': 'بوصلة القبلة',
+    'الأذكار': 'أذكار الصباح والمساء',
+    'المكتبة': 'المكتبة الإسلامية',
+    'المفكرة': 'المفكرة الإسلامية',
+    'Noor AI': 'المساعد الإسلامي الذكي'
+  };
+
+  const features = Object.keys(pages).filter(p => p !== 'الرئيسية');
 
   return (
     <main className="noor-app">
-      <div className="floating-light" />
       <section className="hero">
         <div className="kaaba-icon">🕋</div>
         <h1>Noor</h1>
-        <p>نورٌ يرافقك في طريق الإيمان</p>
-        <div className="daily-card">
-          <span>ورد اليوم</span>
-          <strong>اقرأ حزبك من القرآن</strong>
-        </div>
+        <p>{pages[active]}</p>
+      </section>
+
+      <section className="page-view">
+        <h2>{active}</h2>
+        <p>سيتم تجهيز هذه الصفحة بخصائصها الكاملة.</p>
       </section>
 
       <section className="features">
-        {features.map((item) => (
-          <div className="feature-card" key={item.name}>
-            <div className="feature-icon">{item.icon}</div>
-            <div>{item.name}</div>
-          </div>
+        {features.map((item)=>(
+          <button className="feature-card" key={item} onClick={()=>setActive(item)}>
+            {item}
+          </button>
         ))}
       </section>
+
+      <nav className="bottom-nav">
+        <button onClick={()=>setActive('الرئيسية')}>⌂</button>
+        <button onClick={()=>setActive('القرآن الكريم')}>📖</button>
+        <button onClick={()=>setActive('الصلاة')}>🕌</button>
+        <button onClick={()=>setActive('Noor AI')}>✨</button>
+      </nav>
     </main>
   );
 }
