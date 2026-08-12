@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getStoredPrayerData, getNextPrayer } from '../services/prayerService';
+import { hideStartIoBanner, showStartIoBanner } from '../services/startIoNative';
 
 const cards = [
   ['Quran', 'القرآن الكريم', 'تلاوة وقراءة هادئة'], ['Prayer', 'مواقيت الصلاة', 'الصلاة القادمة والوقت المتبقي'],
@@ -10,7 +11,16 @@ const cards = [
 
 export default function Home({ setPage }) {
   const [prayer, setPrayer] = useState(getStoredPrayerData());
-  useEffect(() => { const id = setInterval(() => setPrayer(getStoredPrayerData()), 30000); return () => clearInterval(id); }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => setPrayer(getStoredPrayerData()), 30000);
+    showStartIoBanner('Home').catch(() => {});
+    return () => {
+      clearInterval(id);
+      hideStartIoBanner().catch(() => {});
+    };
+  }, []);
+
   const next = getNextPrayer(prayer);
   return <section className="home fade-in">
     <div className="hero-card"><span className="hero-glow">✦</span><p className="eyebrow">السلام عليكم</p><h1>نورٌ في يومك، وطمأنينة في قلبك</h1><p>كل ما تحتاجه لعبادتك في مساحة واحدة هادئة.</p><button className="primary" onClick={() => setPage('Quran')}>ابدأ بالقرآن</button></div>
