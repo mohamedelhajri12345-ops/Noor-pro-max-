@@ -15,9 +15,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install
+      - name: Build web
+        run: npm run build
       - name: Upload web build
         uses: actions/upload-artifact@v4
         with:
@@ -32,7 +33,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -42,9 +42,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-      - run: npm install
-      - run: npm run build
-      - run: npx cap sync android
+      - name: Install dependencies
+        run: npm install
+      - name: Build web
+        run: npm run build
+      - name: Sync Capacitor Android
+        run: npx cap sync android
       - name: Validate Android project
         working-directory: android
         run: gradle --no-daemon tasks --stacktrace
