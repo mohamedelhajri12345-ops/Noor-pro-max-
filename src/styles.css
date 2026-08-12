@@ -2,11 +2,54 @@
   box-sizing: border-box;
 }
 
+:root {
+  --noor-green: #0b3d2e;
+  --noor-dark: #03120e;
+  --noor-gold: #d4af37;
+  --noor-light: #f7e7a9;
+}
+
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background: radial-gradient(circle at top, #174f3b, #03120e 70%);
-  color: #fff;
+  background: linear-gradient(180deg, var(--noor-green), var(--noor-dark));
+  color: white;
+}
+
+.splash-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #145c45, #03120e);
+  animation: fadeIn 2s ease;
+}
+
+.splash-logo {
+  font-size: 80px;
+  animation: float 3s infinite;
+}
+
+.splash-title {
+  color: var(--noor-gold);
+  font-size: 42px;
+  margin: 15px;
+}
+
+.progress-bar {
+  width: 220px;
+  height: 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.2);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 70%;
+  background: var(--noor-gold);
+  animation: loading 2.5s infinite;
 }
 
 .noor-app {
@@ -18,12 +61,12 @@ body {
 
 .floating-light {
   position: absolute;
-  width: 260px;
-  height: 260px;
-  top: -80px;
-  right: -80px;
+  width: 300px;
+  height: 300px;
+  top: -90px;
+  right: -90px;
   border-radius: 50%;
-  background: rgba(212,175,55,.15);
+  background: rgba(212,175,55,.18);
   animation: glow 6s infinite alternate;
 }
 
@@ -40,24 +83,19 @@ body {
 .hero h1 {
   font-size: 52px;
   margin: 10px 0;
-  color: #d4af37;
+  color: var(--noor-gold);
 }
 
-.hero p {
-  font-size: 18px;
+.daily-card, .feature-card {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,175,55,.15);
 }
 
 .daily-card {
   margin-top: 25px;
   padding: 20px;
   border-radius: 24px;
-  background: rgba(255,255,255,.1);
-  backdrop-filter: blur(12px);
-}
-
-.daily-card strong {
-  display: block;
-  margin-top: 8px;
 }
 
 .features {
@@ -70,8 +108,6 @@ body {
   padding: 22px 10px;
   text-align: center;
   border-radius: 22px;
-  background: rgba(255,255,255,.08);
-  backdrop-filter: blur(10px);
   transition: .3s;
 }
 
@@ -81,14 +117,22 @@ body {
 
 .feature-icon {
   font-size: 30px;
-  margin-bottom: 10px;
 }
 
 @keyframes float {
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes glow {
-  from { transform: scale(1); }
-  to { transform: scale(1.2); }
+  to { transform: scale(1.25); }
+}
+
+@keyframes loading {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(250%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
