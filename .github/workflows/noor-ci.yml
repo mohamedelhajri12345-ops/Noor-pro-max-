@@ -45,12 +45,15 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npx cap sync android
+      - name: Validate Android project
+        working-directory: android
+        run: gradle --no-daemon tasks --stacktrace
       - name: Assemble debug APK
         working-directory: android
-        run: gradle --no-daemon assembleDebug
+        run: gradle --no-daemon assembleDebug --stacktrace
       - name: Assemble release AAB
         working-directory: android
-        run: gradle --no-daemon bundleRelease
+        run: gradle --no-daemon bundleRelease --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
