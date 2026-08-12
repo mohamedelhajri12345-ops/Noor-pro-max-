@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 import './styles.css';
 import SplashScreen from './components/SplashScreen';
+import { requestNoorPermissions } from './services/permissionService';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState('الرئيسية');
 
   React.useEffect(()=>{
-    const timer = setTimeout(()=>setLoading(false), 2500);
+    const timer = setTimeout(()=>{
+      setLoading(false);
+      requestNoorPermissions();
+    },2500);
     return ()=>clearTimeout(timer);
   },[]);
 
