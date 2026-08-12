@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Quran from '../pages/Quran';
 import Prayer from '../pages/Prayer';
 import Tasbeeh from '../pages/Tasbeeh';
+import More from '../pages/More';
 import Library from '../pages/Library';
 import Qibla from '../pages/Qibla';
 import Azkar from '../pages/Azkar';
@@ -13,7 +14,7 @@ import Settings from '../pages/Settings';
 import About from '../pages/About';
 
 export default function AppRouter({ page, setPage }) {
-  const pages = { Home, Quran, Prayer, Tasbeeh, Library, Qibla, Azkar, Planner, NoorAI, AdhanSettings, Settings, About };
+  const pages = { Home, Quran, Prayer, Tasbeeh, More, Library, Qibla, Azkar, Planner, NoorAI, AdhanSettings, Settings, About };
   const Page = pages[page] || Home;
   return <Page setPage={setPage} />;
 }
