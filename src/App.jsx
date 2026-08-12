@@ -1,21 +1,29 @@
 import React, {useState} from 'react';
 import './styles.css';
 import SplashScreen from './components/SplashScreen';
+import PermissionIntro from './components/PermissionIntro';
 import { requestNoorPermissions } from './services/permissionService';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [showPermissionIntro, setShowPermissionIntro] = useState(false);
   const [active, setActive] = useState('الرئيسية');
 
   React.useEffect(()=>{
     const timer = setTimeout(()=>{
       setLoading(false);
-      requestNoorPermissions();
+      setShowPermissionIntro(true);
     },2500);
     return ()=>clearTimeout(timer);
   },[]);
 
+  const allowPermissions = async () => {
+    setShowPermissionIntro(false);
+    await requestNoorPermissions();
+  };
+
   if(loading) return <SplashScreen />;
+  if(showPermissionIntro) return <PermissionIntro onAccept={allowPermissions}/>;
 
   const pages = {
     'الرئيسية': 'نورٌ يرافقك في طريق الإيمان',
@@ -44,12 +52,6 @@ export default function App() {
           <button className="feature-card" key={item} onClick={()=>setActive(item)}>{item}</button>
         ))}
       </section>
-      <nav className="bottom-nav">
-        <button onClick={()=>setActive('الرئيسية')}>⌂</button>
-        <button onClick={()=>setActive('القرآن الكريم')}>📖</button>
-        <button onClick={()=>setActive('الصلاة')}>🕌</button>
-        <button onClick={()=>setActive('Noor AI')}>✨</button>
-      </nav>
     </main>
   );
 }
