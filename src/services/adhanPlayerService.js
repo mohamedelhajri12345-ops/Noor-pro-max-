@@ -1,29 +1,32 @@
-// Noor Adhan Background Player Service
-// Prepared for Android background audio integration.
+const KEY = 'noor.adhan.settings';
+const defaults = { enabled: true, selectedAdhan: null, volume: 0.85 };
 
-const adhanSettings = {
-  enabled: true,
-  selectedAdhan: 'default-adhan.mp3',
-};
+function read() {
+  try { return { ...defaults, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }
+  catch { return { ...defaults }; }
+}
+
+const adhanSettings = read();
+function persist() { localStorage.setItem(KEY, JSON.stringify(adhanSettings)); }
 
 export function setAdhanSound(soundFile) {
-  adhanSettings.selectedAdhan = soundFile;
+  adhanSettings.selectedAdhan = soundFile || null;
+  persist();
+}
+
+export function setAdhanVolume(volume) {
+  adhanSettings.volume = Math.min(1, Math.max(0, Number(volume) || 0));
+  persist();
 }
 
 export function enableAdhan(enabled) {
-  adhanSettings.enabled = enabled;
+  adhanSettings.enabled = Boolean(enabled);
+  persist();
 }
 
 export function playAdhanAtPrayerTime(prayerName) {
-  if (!adhanSettings.enabled) return;
-
-  // Native Android background audio service will trigger this function
-  // when a scheduled prayer notification fires.
-  return {
-    prayer: prayerName,
-    audio: adhanSettings.selectedAdhan,
-    background: true,
-  };
+  if (!adhanSettings.enabled || !adhanSettings.selectedAdhan) return null;
+  return { prayer: prayerName, audio: adhanSettings.selectedAdhan, volume: adhanSettings.volume, background: true };
 }
 
 export default adhanSettings;
