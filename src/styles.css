@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #0b3d2e, #061b16);
+  color: white;
+}
+
+.noor-app {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.features {
+  display: grid;
+  gap: 16px;
+}
+
+.feature-card {
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
