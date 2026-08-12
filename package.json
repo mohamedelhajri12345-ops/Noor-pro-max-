@@ -1,0 +1,14 @@
+{
+  "name": "noor-pro-max",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Noor Islamic application",
+  "scripts": {
+    "build": "vite build",
+    "android": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "latest",
+    "@capacitor/android": "latest"
+  }
+}
