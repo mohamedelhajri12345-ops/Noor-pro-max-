@@ -4,6 +4,7 @@ import SplashScreen from './components/SplashScreen';
 import PermissionIntro from './components/PermissionIntro';
 import NoorBannerAd from './components/ads/NoorBannerAd';
 import NoorNativeAd from './components/ads/NoorNativeAd';
+import { canShowAds } from './components/ads/adPolicy';
 import { requestNoorPermissions } from './services/permissionService';
 
 export default function App() {
@@ -40,7 +41,7 @@ export default function App() {
   };
 
   const features = Object.keys(pages).filter(p => p !== 'الرئيسية');
-  const allowAds = !['القرآن الكريم','الصلاة'].includes(active);
+  const showAds = canShowAds(active);
 
   return (
     <main className="noor-app">
@@ -50,11 +51,11 @@ export default function App() {
         <p>{pages[active]}</p>
       </section>
 
-      {allowAds && <NoorBannerAd />}
+      {showAds && <NoorBannerAd />}
 
       <section className="page-view"><h2>{active}</h2></section>
 
-      {allowAds && active === 'المكتبة' && <NoorNativeAd />}
+      {showAds && active === 'المكتبة' && <NoorNativeAd />}
 
       <section className="features">
         {features.map((item)=>(
