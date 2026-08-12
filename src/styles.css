@@ -6,7 +6,6 @@
   --noor-green: #0b3d2e;
   --noor-dark: #03120e;
   --noor-gold: #d4af37;
-  --noor-light: #f7e7a9;
 }
 
 body {
@@ -16,58 +15,10 @@ body {
   color: white;
 }
 
-.splash-screen {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle, #145c45, #03120e);
-  animation: fadeIn 2s ease;
-}
-
-.splash-logo {
-  font-size: 80px;
-  animation: float 3s infinite;
-}
-
-.splash-title {
-  color: var(--noor-gold);
-  font-size: 42px;
-  margin: 15px;
-}
-
-.progress-bar {
-  width: 220px;
-  height: 6px;
-  border-radius: 10px;
-  background: rgba(255,255,255,.2);
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 70%;
-  background: var(--noor-gold);
-  animation: loading 2.5s infinite;
-}
-
 .noor-app {
   min-height: 100vh;
-  padding: 20px;
-  overflow: hidden;
+  padding: 20px 20px 90px;
   position: relative;
-}
-
-.floating-light {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: -90px;
-  right: -90px;
-  border-radius: 50%;
-  background: rgba(212,175,55,.18);
-  animation: glow 6s infinite alternate;
 }
 
 .hero {
@@ -86,53 +37,60 @@ body {
   color: var(--noor-gold);
 }
 
-.daily-card, .feature-card {
-  background: rgba(255,255,255,.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(212,175,55,.15);
-}
-
-.daily-card {
-  margin-top: 25px;
+.page-view {
+  text-align: center;
   padding: 20px;
   border-radius: 24px;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
 }
 
 .features {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
+  margin-top: 20px;
 }
 
 .feature-card {
+  color: white;
   padding: 22px 10px;
-  text-align: center;
   border-radius: 22px;
+  border: 1px solid rgba(212,175,55,.15);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  height: 65px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  background: rgba(3,18,14,.85);
+  border: 1px solid rgba(212,175,55,.25);
+  backdrop-filter: blur(15px);
+  z-index: 10;
+}
+
+.bottom-nav button {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
   transition: .3s;
 }
 
-.feature-card:hover {
+.bottom-nav button:hover {
   transform: translateY(-5px);
-}
-
-.feature-icon {
-  font-size: 30px;
+  color: var(--noor-gold);
 }
 
 @keyframes float {
   50% { transform: translateY(-10px); }
-}
-
-@keyframes glow {
-  to { transform: scale(1.25); }
-}
-
-@keyframes loading {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(250%); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
