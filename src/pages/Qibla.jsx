@@ -1,5 +1,2 @@
-import React from 'react';
-
-export default function Qibla(){
-  return <section className="page"><h2>🧭 القبلة</h2><p>تحديد اتجاه القبلة سيتم ربطه بالبوصلة والموقع.</p></section>;
-}
+import React,{useEffect,useState} from 'react';
+export default function Qibla(){const [angle,setAngle]=useState(null);const [ready,setReady]=useState(false);useEffect(()=>{const handler=e=>{const a=e.webkitCompassHeading ?? (360-(e.alpha||0));setAngle(Math.round(a));setReady(true)};window.addEventListener('deviceorientation',handler,true);return()=>window.removeEventListener('deviceorientation',handler,true)},[]);return <section className="page center-page fade-in"><div className="page-title"><span>القبلة</span><small>وجّه هاتفك نحو مكة</small></div><div className="compass"><div className="needle" style={{transform:`translate(-50%,-50%) rotate(${angle||0}deg)`}}>▲</div><span className="north">N</span><span className="qibla-label">🕋</span></div><p>{ready?`اتجاه الهاتف: ${angle}°`:'حرّك الهاتف بشكل رقم 8 لمعايرة البوصلة'}</p></section>}

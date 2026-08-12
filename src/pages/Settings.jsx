@@ -1,0 +1,2 @@
+import React from 'react';
+export default function Settings({setPage}){return <section className="page fade-in"><div className="page-title"><span>الإعدادات</span><small>خصوصية وتحكم كامل</small></div><div className="settings-list">{[['AdhanSettings','الأذان والإشعارات'],['About','الخصوصية ومعلومات التطبيق']].map(([p,t])=><button className="list-row" key={p} onClick={()=>setPage(p)}><strong>{t}</strong><span>›</span></button>)}</div></section>}

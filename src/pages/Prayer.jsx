@@ -1,20 +1,4 @@
-import React, {useState} from 'react';
-import AdhanSettings from './AdhanSettings';
-
-export default function Prayer(){
- const [showSettings,setShowSettings]=useState(false);
- return (
-  <section className="page prayer-page">
-   <h2>🕌 مواقيت الصلاة</h2>
-   <p>عرض المواقيت المحلية والتنبيهات.</p>
-   <div className="prayer-card">
-    <h3>🔔 إعدادات الأذان</h3>
-    <p>تحكم في صوت الأذان والتذكيرات.</p>
-    <button onClick={()=>setShowSettings(!showSettings)}>
-      {showSettings ? 'إخفاء الإعدادات' : 'فتح إعدادات الأذان'}
-    </button>
-   </div>
-   {showSettings && <AdhanSettings />}
-  </section>
- );
-}
+import React,{useEffect,useState} from 'react';
+import {getStoredPrayerData,getNextPrayer} from '../services/prayerService';
+import {getCurrentLocation} from '../services/locationPrayerService';
+export default function Prayer({setPage}){const [data,setData]=useState(getStoredPrayerData());const [busy,setBusy]=useState(false);useEffect(()=>{getCurrentLocation().then(x=>x&&setData(x)).catch(()=>{});},[]);const next=getNextPrayer(data);const names={Fajr:'الفجر',Dhuhr:'الظهر',Asr:'العصر',Maghrib:'المغرب',Isha:'العشاء'};return <section className="page fade-in"><div className="page-title"><span>الصلاة</span><small>{data.location}</small></div><div className="prayer-hero"><span>الصلاة القادمة</span><strong>{next?.name||'—'}</strong><b>{next?.time||'--:--'}</b><small>{next?.remaining||''}</small></div><div className="prayer-list">{Object.entries(data.times||{}).map(([k,t])=><div className={'prayer-row '+(next?.key===k?'active':'')} key={k}><span>{names[k]}</span><strong>{t}</strong><small>{next?.key===k?'القادمة':''}</small></div>)}</div><div className="button-row"><button className="secondary" disabled={busy} onClick={async()=>{setBusy(true);try{const x=await getCurrentLocation(true);if(x)setData(x)}finally{setBusy(false)}}>{busy?'جاري تحديد الموقع…':'تحديث الموقع'}</button><button className="secondary" onClick={()=>setPage('AdhanSettings')}>إعدادات الأذان</button></div></section>}

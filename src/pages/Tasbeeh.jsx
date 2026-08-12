@@ -1,5 +1,2 @@
-import React from 'react';
-
-export default function Tasbeeh(){
- return <section><h2>📿 المسبحة الإلكترونية</h2><p>عداد تسبيح رقمي.</p><button>تسبيح</button></section>;
-}
+import React,{useState} from 'react';
+export default function Tasbeeh(){const [count,setCount]=useState(Number(localStorage.getItem('noor.tasbeeh')||0));const [goal,setGoal]=useState(33);const tap=()=>{const n=count+1;setCount(n);localStorage.setItem('noor.tasbeeh',n)};return <section className="page center-page fade-in"><div className="page-title"><span>المسبحة الإلكترونية</span><small>تعمل بدون إنترنت</small></div><div className="tasbeeh-ring"><div><strong>{count}</strong><span>من {goal}</span></div></div><button className="tasbeeh-button" onClick={tap}>سَبِّح</button><div className="goal-row">{[33,99,100].map(g=><button className={goal===g?'selected':''} onClick={()=>setGoal(g)} key={g}>{g}</button>)}<button onClick={()=>{setCount(0);localStorage.setItem('noor.tasbeeh','0')}}>تصفير</button></div></section>}

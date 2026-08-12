@@ -1,67 +1,46 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 import SplashScreen from './components/SplashScreen';
 import PermissionIntro from './components/PermissionIntro';
+import BottomNav from './components/BottomNav';
+import AppRouter from './router/AppRouter';
 import NoorBannerAd from './components/ads/NoorBannerAd';
-import NoorNativeAd from './components/ads/NoorNativeAd';
 import { canShowAds } from './components/ads/adPolicy';
 import { requestNoorPermissions } from './services/permissionService';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [showPermissionIntro, setShowPermissionIntro] = useState(false);
-  const [active, setActive] = useState('الرئيسية');
+  const [page, setPage] = useState('Home');
 
-  React.useEffect(()=>{
-    const timer = setTimeout(()=>{
+  useEffect(() => {
+    const done = setTimeout(() => {
       setLoading(false);
-      setShowPermissionIntro(true);
-    },2500);
-    return ()=>clearTimeout(timer);
-  },[]);
+      if (localStorage.getItem('noor.permissionIntroSeen') !== '1') setShowPermissionIntro(true);
+    }, 900);
+    return () => clearTimeout(done);
+  }, []);
 
   const allowPermissions = async () => {
+    localStorage.setItem('noor.permissionIntroSeen', '1');
     setShowPermissionIntro(false);
     await requestNoorPermissions();
   };
 
-  if(loading) return <SplashScreen />;
-  if(showPermissionIntro) return <PermissionIntro onAccept={allowPermissions}/>;
-
-  const pages = {
-    'الرئيسية': 'نورٌ يرافقك في طريق الإيمان',
-    'القرآن الكريم': 'صفحة القرآن والمشغل المتواصل',
-    'الصلاة': 'مواقيت الصلاة والأذان',
-    'المسبحة': 'المسبحة الإلكترونية',
-    'القبلة': 'بوصلة القبلة',
-    'الأذكار': 'أذكار الصباح والمساء',
-    'المكتبة': 'المكتبة الإسلامية',
-    'المفكرة': 'المفكرة الإسلامية',
-    'Noor AI': 'المساعد الإسلامي الذكي'
-  };
-
-  const features = Object.keys(pages).filter(p => p !== 'الرئيسية');
-  const showAds = canShowAds(active);
+  if (loading) return <SplashScreen />;
+  if (showPermissionIntro) return <PermissionIntro onAccept={allowPermissions} onSkip={() => { localStorage.setItem('noor.permissionIntroSeen', '1'); setShowPermissionIntro(false); }} />;
 
   return (
-    <main className="noor-app">
-      <section className="hero">
-        <div className="kaaba-icon">🕋</div>
-        <h1>Noor</h1>
-        <p>{pages[active]}</p>
-      </section>
-
-      {showAds && <NoorBannerAd />}
-
-      <section className="page-view"><h2>{active}</h2></section>
-
-      {showAds && active === 'المكتبة' && <NoorNativeAd />}
-
-      <section className="features">
-        {features.map((item)=>(
-          <button className="feature-card" key={item} onClick={()=>setActive(item)}>{item}</button>
-        ))}
-      </section>
+    <main className="noor-app" dir="rtl">
+      <header className="topbar">
+        <div><span className="brand-mark">☾</span><strong>Noor</strong></div>
+        <span className="brand-subtitle">نورٌ يرافقك</span>
+      </header>
+      <div className="page-shell">
+        <AppRouter page={page} setPage={setPage} />
+      </div>
+      {canShowAds(page) && <NoorBannerAd />}
+      <BottomNav page={page} setPage={setPage} />
     </main>
   );
 }

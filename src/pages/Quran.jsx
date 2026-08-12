@@ -1,5 +1,7 @@
-import React from 'react';
-
-export default function Quran(){
- return <section><h2>📖 القرآن الكريم</h2><p>قراءة القرآن والاستماع بتجربة متصلة.</p><button>تشغيل التلاوة</button></section>;
+import React, { useEffect, useState } from 'react';
+const surahs = ['الفاتحة','البقرة','آل عمران','النساء','المائدة','الأنعام','الأعراف','الأنفال','التوبة','يونس','هود','يوسف'];
+export default function Quran() {
+ const [selected,setSelected]=useState(null); const [playing,setPlaying]=useState(false); const [reciter,setReciter]=useState('مشاري راشد العفاسي');
+ if (!selected) return <section className="page fade-in"><div className="page-title"><span>القرآن الكريم</span><small>قراءة هادئة بلا إعلانات</small></div><div className="search-box">⌕ <input placeholder="ابحث عن سورة" onChange={e=>{}} /></div><div className="surah-list">{surahs.map((s,i)=><button className="list-row" key={s} onClick={()=>setSelected(s)}><span className="ayah-number">{i+1}</span><div><strong>{s}</strong><small>{i === 0 ? 'مكية · 7 آيات' : 'سورة القرآن الكريم'}</small></div><span>›</span></button>)}</div></section>;
+ return <section className="page fade-in"><button className="back" onClick={()=>{setSelected(null);setPlaying(false)}}>→ السور</button><div className="quran-reader"><p className="eyebrow">سورة</p><h1>{selected}</h1><p className="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p><div className="ayah-text">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝</div></div><div className="player"><select value={reciter} onChange={e=>setReciter(e.target.value)}><option>مشاري راشد العفاسي</option><option>عبد الرحمن السديس</option><option>ماهر المعيقلي</option></select><button className="play" onClick={()=>setPlaying(!playing)}>{playing?'❚❚':'▶'}</button><span>{playing?'جاري التشغيل':'اضغط للتلاوة'}</span></div></section>;
 }

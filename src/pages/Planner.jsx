@@ -1,5 +1,2 @@
-import React from 'react';
-
-export default function Planner(){
-  return <section className="page"><h2>📝 المفكرة الإسلامية</h2><p>مكان لكتابة الأعمال اليومية والأهداف الروحية.</p></section>;
-}
+import React,{useEffect,useState} from 'react';
+export default function Planner(){const [text,setText]=useState(localStorage.getItem('noor.planner')||'');const [saved,setSaved]=useState(false);useEffect(()=>{const id=setTimeout(()=>localStorage.setItem('noor.planner',text),300);return()=>clearTimeout(id)},[text]);return <section className="page fade-in"><div className="page-title"><span>المفكرة الإسلامية</span><small>ملاحظاتك محفوظة على جهازك</small></div><div className="planner-grid">{['ماذا فعلت اليوم؟','عباداتي وأهدافي','ما أريد إنجازه','ملاحظات'].map((t,i)=><div className="note-card" key={t}><h3>{t}</h3><textarea value={i===0?text:''} onChange={e=>{if(i===0){setText(e.target.value);setSaved(true)}}} placeholder="اكتب هنا…" readOnly={i!==0}/></div>)}</div>{saved&&<small className="saved">✓ تم الحفظ محليًا</small>}</section>}

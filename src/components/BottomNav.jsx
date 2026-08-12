@@ -1,16 +1,2 @@
 import React from 'react';
-
-export default function BottomNav({active, setActive}) {
- const items=[
-  ['Home','الرئيسية'],
-  ['Quran','القرآن'],
-  ['Prayer','الصلاة'],
-  ['Tasbeeh','المسبحة'],
-  ['NoorAI','Noor AI']
- ];
- return <nav className="bottom-nav">
-  {items.map(([id,label])=>(
-   <button key={id} className={active===id?'active':''} onClick={()=>setActive(id)}>{label}</button>
-  ))}
- </nav>;
-}
+export default function BottomNav({page,setPage}){const items=[['Home','الرئيسية','⌂'],['Quran','القرآن','۞'],['Prayer','الصلاة','◷'],['Tasbeeh','المسبحة','●'],['More','المزيد','⋯']];return <nav className="bottom-nav">{items.map(([id,label,icon])=><button className={(page===id||(id==='More'&&['Library','Qibla','Azkar','Planner','NoorAI','Settings','About','AdhanSettings'].includes(page)))?'active':''} key={id} onClick={()=>setPage(id==='More'?'Settings':id)}><span>{icon}</span><small>{label}</small></button>)}</nav>}

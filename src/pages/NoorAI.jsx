@@ -1,5 +1,2 @@
 import React from 'react';
-
-export default function NoorAI(){
-  return <section className="page"><h2>✨ Noor AI</h2><p>المساعد الإسلامي الذكي سيكون متصلا بالذكاء الاصطناعي مع مصادر موثوقة.</p></section>;
-}
+export default function NoorAI(){return <section className="page fade-in"><div className="page-title"><span>Noor AI</span><small>مساعد إسلامي Online فقط</small></div><div className="ai-card"><div className="ai-icon">✦</div><h2>اسأل باطمئنان، وتحقق قبل العمل</h2><p>سيكون هذا القسم منفصلًا عن وظائف التطبيق. عند ربط مزود AI موثوق، يجب أن يعرض مصادر الآيات والأحاديث ودرجة الحديث، وينبّه إلى اختلاف الفقهاء ولا يخترع نصوصًا.</p><div className="notice">لم يتم ربط نموذج AI حقيقي في هذه الدفعة، لذلك لن نعطيك إجابات دينية وهمية.</div><input className="ai-input" placeholder="اكتب سؤالك عندما يتم ربط المساعد…" disabled /></div></section>}

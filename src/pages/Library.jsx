@@ -1,5 +1,2 @@
 import React from 'react';
-
-export default function Library(){
- return <section><h2>📚 المكتبة الإسلامية</h2><p>أناشيد ومحتوى إسلامي.</p></section>;
-}
+export default function Library(){return <section className="page fade-in"><div className="page-title"><span>المكتبة الإسلامية</span><small>محتوى مختار بدون ملفات مقرصنة</small></div><div className="library-grid">{[['الأذكار اليومية','أذكار الصباح والمساء','Azkar'],['القرآن الكريم','قراءة وتدبر','Quran'],['الابتهالات والأناشيد','محتوى صوتي مرخّص فقط','Library'],['المفكرة','تنظيم عبادتك','Planner']].map(x=><article className="library-card" key={x[0]}><span>۞</span><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div><div className="notice">لن نضمّن ملفات صوتية محمية بحقوق النشر دون ترخيص. يمكن إضافة مصادر مرخّصة لاحقًا.</div></section>}
