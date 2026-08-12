@@ -10,8 +10,8 @@ export function canShowAds(page, { quranPlaying = false, adhanPlaying = false } 
 
 export function getAdPlacement(page) {
   if (!canShowAds(page)) return null;
-  if (page === 'Home') return 'home-banner';
-  if (page === 'Library') return 'library-native';
-  if (page === 'Planner') return 'planner-native';
-  return 'general-banner';
+  if (page === 'Home') return { id: 'home-banner', banner: true, native: false };
+  if (page === 'Library') return { id: 'library-native', banner: false, native: true };
+  if (page === 'Planner') return { id: 'planner-native', banner: false, native: true };
+  return { id: 'general-banner', banner: true, native: false };
 }
